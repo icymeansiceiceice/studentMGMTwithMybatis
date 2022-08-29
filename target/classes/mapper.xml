@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace = "coursemap">
+
+
+	<insert id ="insertCourse" parameterType="coursereq" useGeneratedKeys="true" keyProperty="id" >
+		insert into course(id,name) values(#{id},#{name});
+	</insert>
+	
+	
+	<select id = "getbyID" resultType="courseres" resultMap ="courseresult"> 	
+	select * from course
+	<if test="id != null">
+	where id =  #{id}
+	</if>
+	</select>
+
+	<select id = "getallcourse" resultType="courseres" resultMap ="courseresult"> 	
+	select * from course;
+	</select>
+
+
+	<select id="coureMaxid" resultType="INTEGER" resultMap="max">
+	select max(id) as maxid from course;
+	</select>
+	
+	<resultMap type = "INTEGER" id = "max" >	
+	<result property = "a" column = "maxid"/>
+	</resultMap>
+	
+
+	<resultMap type = "courseres" id = "courseresult" >
+	
+	<result property = "id" column = "id"/>
+	<result property = "name" column = "name"/>
+
+	</resultMap>
+
+
+
+
+</mapper>
